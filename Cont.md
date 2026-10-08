@@ -39,15 +39,3 @@ figcaption {
   display: block;
 }
 </style>
-
-
-{% for author in site.authors %}
-  <div class="div1">
-  
-    <h2><figure><img src="{{author.image}}"/></figure>{{ author.name }}</h2>
-    <h3>{{ author.position }}</h3>
-    <p>{{ author.content | markdownify }}</p>
-
-  </div>
-{% endfor %}
-
