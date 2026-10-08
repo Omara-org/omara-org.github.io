@@ -1,0 +1,12 @@
+main:
+  - title: "Science"
+    url: "/Proj/"
+  - title: "Publications"
+    url: "/Pub/"
+  - title: "Software"
+    url: "/Sof/"
+  - title: "Envents ? "
+    url: "/Eve/"
+  - title: "About us"
+    url: "/Cont/"
+    

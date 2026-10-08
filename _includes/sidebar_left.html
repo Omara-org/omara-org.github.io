@@ -1,0 +1,49 @@
+<style>
+  /*a {
+    display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    margin-bottom: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    color: inherit;
+    font-size: $type-size-5;
+    text-decoration: none;
+    align-items: center;
+    -webkit-transition: none;
+    animation: none;
+  }
+  ul {
+    padding: 10px;
+    list-style-type: none;
+  }
+
+  li {
+    white-space: nowrap;
+  }
+
+@media  screen and (min-width: 0px) and (max-width: 400px) {
+  a {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 1024px) {
+  a {
+    display: none;
+  }
+}*/
+
+</style>
+
+
+<div class= "sidebar sticky">
+    <ul class="visible-links">
+        {%- for link in site.data.navigation.main -%}
+          <li class="masthead__menu-item">
+            <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>  
+</div>

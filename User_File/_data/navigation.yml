@@ -1,0 +1,12 @@
+# main links
+main:
+   - title: "Progetto"
+     url: /Proj/
+   - title: "Pubblicazioni"
+     url: /Pub/
+   - title: "Software"
+     url: /Sof/
+   - title: "Eventi"
+     url: /Eve/
+   - title: "Contatti"
+     url: /Cont/

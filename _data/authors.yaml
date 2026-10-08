@@ -1,0 +1,9 @@
+- name: One
+  display_name: Person One
+  avatar: /img/SM.JPG
+  permalink: author/personone/
+
+- name: Two
+  display_name: Person Two
+  avatar: /img/avatar2.jpg
+  permalink: author/persontwo/
