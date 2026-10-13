@@ -1,0 +1,15 @@
+// Rouge syntax highlighting, mapped onto the theme tokens.
+.highlight {
+  .c, .cm, .c1, .cp, .cs { color: var(--syn-comment); font-style: italic; }
+  .k, .kd, .kn, .kp, .kr, .kt, .kc, .ow { color: var(--syn-keyword); }
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sr, .ss, .sx, .dl { color: var(--syn-string); }
+  .m, .mi, .mf, .mh, .mo, .mb, .mx, .il { color: var(--syn-number); }
+  .nf, .fm, .nb, .bp { color: var(--syn-function); }
+  .nt, .nn, .nc { color: var(--syn-tag); }
+  .na, .nv, .vi, .vg, .vc { color: var(--syn-attr); }
+  .o, .p { color: var(--text); }
+  .gd { color: var(--syn-tag); }
+  .gi { color: var(--syn-string); }
+  .gh, .gu { color: var(--text-muted); font-weight: 600; }
+  .err { color: var(--syn-tag); }
+}

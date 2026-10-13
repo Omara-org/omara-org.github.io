@@ -1,0 +1,60 @@
+// Colour tokens. Light is the default; the dark set is applied when the
+// system prefers dark (and the visitor has not chosen light), or when the
+// visitor has explicitly chosen dark.
+
+@mixin dark-tokens {
+  color-scheme: dark;
+  --bg: #0f1115;
+  --surface: #171a21;
+  --text: #e6e8ec;
+  --text-muted: #9aa3b2;
+  --border: #272b35;
+  --accent: #7aa2ff;
+  --accent-hover: #a3bcff;
+  --code-bg: #1c2028;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+
+  --syn-comment: #7f8899;
+  --syn-keyword: #c792ea;
+  --syn-string: #9ece6a;
+  --syn-number: #ff9e64;
+  --syn-function: #7aa2ff;
+  --syn-tag: #f7768e;
+  --syn-attr: #e0af68;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #fbfbfc;
+  --surface: #ffffff;
+  --text: #1b1f27;
+  --text-muted: #6b7280;
+  --border: #e6e8ee;
+  --accent: #2f5fe0;
+  --accent-hover: #1f46b3;
+  --code-bg: #f3f4f7;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+
+  --syn-comment: #8a919e;
+  --syn-keyword: #8e44ad;
+  --syn-string: #2e7d32;
+  --syn-number: #c2410c;
+  --syn-function: #2f5fe0;
+  --syn-tag: #c0392b;
+  --syn-attr: #b45309;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --measure: 42rem;
+  --radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include dark-tokens;
+  }
+}
+
+:root[data-theme="dark"] {
+  @include dark-tokens;
+}

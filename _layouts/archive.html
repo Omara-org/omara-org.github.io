@@ -1,26 +1,24 @@
 ---
 layout: default
 ---
-
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
-{% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
-{% endif %}
-
-{% if page.url != "/" and site.breadcrumbs %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
-{% endif %}
-
-<div id="main" role="main">
-  {% include sidebar.html %}
-
-  <div class="archive">
-    {% unless page.header.overlay_color or page.header.overlay_image %}
-      <h1 id="page-title" class="page__title">{{ page.title }}</h1>
-    {% endunless %}
-    {{ content }}
-  </div>
-</div>
+<article class="page">
+  <header class="page__header">
+    <h1 class="page__title">{{ page.title }}</h1>
+  </header>
+  {% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  {% for year in by_year %}
+  <section class="archive-year">
+    <h2 class="archive-year__title">{{ year.name }}</h2>
+    <ul class="archive-list">
+      {% for post in year.items %}
+      <li class="archive-item">
+        <time class="archive-item__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %b" }}</time>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% else %}
+  <p class="muted">No posts yet.</p>
+  {% endfor %}
+</article>
