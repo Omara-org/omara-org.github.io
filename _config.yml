@@ -1,6 +1,6 @@
 # Theme
 theme                    : minimal-mistakes-jekyll
-minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dusk" # custom, see _sass/minimal-mistakes/skins/_dusk.scss. Built-ins: "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site settings
 locale                   : "en-US"
