@@ -1,9 +1,27 @@
 main:
-  - title: "Posts"
+  - title: "Projects"
+    url: /projects/
+  - title: "Composition"
+    url: /composition/
+  - title: "Practices"
+    url: /practices/
+  - title: "Blog"
     url: /posts/
-  - title: "Categories"
-    url: /categories/
-  - title: "Tags"
-    url: /tags/
   - title: "About"
     url: /about/
+
+projects:
+  - title: "Architecture"
+    children:
+      - title: "Composition"
+        url: /composition/
+  - title: "Network functions"
+    children:
+      - title: "UPF-NF"
+        url: /projects/upf-nf/
+
+practices:
+  - title: "Practices"
+    children:
+      - title: "Overview"
+        url: /practices/

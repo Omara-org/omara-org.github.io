@@ -8,7 +8,7 @@ title                    : "Omara"
 title_separator          : "-"
 subtitle                 : # tagline shown below the title
 name                     : "Omara"
-description              : "Notes, projects and ideas from Omara."
+description              : "Open infrastructure for mobile core networks, built as composition: an engine, protocol libraries and thin network functions."
 url                      : "https://omara-org.github.io"
 baseurl                  : ""
 repository               : "Omara-org/omara-org.github.io"
@@ -18,7 +18,7 @@ search                   : true
 author:
   name   : "Omara"
   avatar : # e.g. "/assets/images/bio-photo.jpg"
-  bio    : "Notes, projects and ideas."
+  bio    : "Own your core."
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
@@ -38,6 +38,14 @@ permalink: /:categories/:title/
 paginate: 5
 paginate_path: /page:num/
 timezone: Europe/Rome
+
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:path/
+  practices:
+    output: true
+    permalink: /:collection/:path/
 
 include:
   - _pages
@@ -80,4 +88,27 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false
+  # projects
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: single
+      author_profile: false
+      sidebar:
+        nav: "projects"
+      toc: true
+      toc_sticky: true
+      toc_label: "On this page"
+  # practices
+  - scope:
+      path: ""
+      type: practices
+    values:
+      layout: single
+      author_profile: false
+      sidebar:
+        nav: "practices"
+      toc: true
+      toc_sticky: true
