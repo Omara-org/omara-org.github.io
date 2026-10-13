@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Dusk skin: a warm mid-tone palette, neither bright white nor full dark,
+   meant to be comfortable at any hour.
+   ========================================================================== */
+
+/* Colors */
+$background-color: #cfc9bf !default;          // warm stone
+$text-color: #2b2926 !default;
+$muted-text-color: #5f5a52 !default;
+$primary-color: #3f5c6b !default;             // slate teal
+$border-color: #b5aea2 !default;
+$code-background-color: #c2bcb1 !default;
+$code-background-color-dark: #b5aea2 !default;
+$form-background-color: #c2bcb1 !default;
+$footer-background-color: #bfb8ac !default;
+$link-color: #2e5566 !default;
+$link-color-hover: mix(#000, $link-color, 25%) !default;
+$link-color-visited: mix(#000, $link-color, 10%) !default;
+$masthead-link-color: $text-color !default;
+$masthead-link-color-hover: $primary-color !default;
+$navicon-link-color-hover: mix(#fff, $primary-color, 75%) !default;
+
+/* notices */
+$notice-background-mix: 75% !default;
+$code-notice-background-mix: 85% !default;
+
+/* dusk syntax highlighting (base16) */
+$base00: #c2bcb1 !default;
+$base01: #b5aea2 !default;
+$base02: #a59e92 !default;
+$base03: #7d7669 !default;
+$base04: #5f5a52 !default;
+$base05: #2b2926 !default;
+$base06: #221f1d !default;
+$base07: #1a1816 !default;
+$base08: #a63f32 !default;
+$base09: #b0591e !default;
+$base0a: #8a6d0f !default;
+$base0b: #4f7a2a !default;
+$base0c: #2f7a74 !default;
+$base0d: #2e5c8a !default;
+$base0e: #7a4c8a !default;
+$base0f: #8a5a3a !default;

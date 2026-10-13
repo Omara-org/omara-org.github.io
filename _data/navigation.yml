@@ -1,0 +1,25 @@
+main:
+  - title: "Projects"
+    url: /projects/
+  - title: "Composition"
+    url: /composition/
+  - title: "Practices"
+    url: /practices/
+  - title: "About"
+    url: /about/
+
+projects:
+  - title: "Architecture"
+    children:
+      - title: "Composition"
+        url: /composition/
+  - title: "Network functions"
+    children:
+      - title: "UPF-NF"
+        url: /projects/upf-nf/
+
+practices:
+  - title: "Practices"
+    children:
+      - title: "Overview"
+        url: /practices/
