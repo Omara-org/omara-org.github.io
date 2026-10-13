@@ -1,55 +1,83 @@
-# Site settings
-title: Omara
-tagline: Notes, projects and ideas
-description: >-
-  The Omara blog: notes on what we build, what we learn and what we are thinking about.
-url: "https://omara-org.github.io"
-baseurl: ""
-lang: en
-timezone: Europe/Rome
+# Theme
+theme                    : minimal-mistakes-jekyll
+minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
+# Site settings
+locale                   : "en-US"
+title                    : "Omara"
+title_separator          : "-"
+subtitle                 : # tagline shown below the title
+name                     : "Omara"
+description              : "Notes, projects and ideas from Omara."
+url                      : "https://omara-org.github.io"
+baseurl                  : ""
+repository               : "Omara-org/omara-org.github.io"
+search                   : true
+
+# Site author
 author:
-  name: Omara
-github_username: Omara-org
+  name   : "Omara"
+  avatar : # e.g. "/assets/images/bio-photo.jpg"
+  bio    : "Notes, projects and ideas."
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/Omara-org"
+
+# Site footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/Omara-org"
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
-kramdown:
-  input: GFM
-  syntax_highlighter_opts:
-    css_class: highlight
+permalink: /:categories/:title/
+paginate: 5
+paginate_path: /page:num/
+timezone: Europe/Rome
 
-permalink: /:year/:month/:title/
-excerpt_separator: "<!--more-->"
-
-sass:
-  sass_dir: _sass
-  style: compressed
-
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
-feed:
-  posts_limit: 20
-
-defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-  - scope:
-      path: ""
-    values:
-      layout: page
-
+include:
+  - _pages
 exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
-  - LICENSE
   - vendor
   - node_modules
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+defaults:
+  # posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+  # pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
