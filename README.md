@@ -15,3 +15,5 @@ docker run --rm -it -p 4000:4000 -u "$(id -u):$(id -g)" -e HOME=/tmp \
   -e BUNDLE_PATH=/site/vendor/bundle -v "$PWD":/site -w /site ruby:3.3 \
   sh -c "bundle install && bundle exec jekyll serve --host 0.0.0.0"
 ```
+
+Login gate password is configured in `_includes/head/custom.html` (`sitePassword`).
