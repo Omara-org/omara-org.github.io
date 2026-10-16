@@ -29,6 +29,8 @@ concurrency:
 jobs:
   # Build job
   build:
+    environment:
+      name: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,9 +47,15 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: |
+          if [ -z "${SITE_PASSWORD:-}" ]; then
+            echo "SITE_PASSWORD is not configured in the production environment secrets."
+            exit 1
+          fi
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3

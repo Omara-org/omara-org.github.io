@@ -16,4 +16,14 @@ docker run --rm -it -p 4000:4000 -u "$(id -u):$(id -g)" -e HOME=/tmp \
   sh -c "bundle install && bundle exec jekyll serve --host 0.0.0.0"
 ```
 
-Login gate password is configured in `_includes/head/custom.html` (`sitePassword`).
+## Secret handling for deployments
+
+This repository uses a `production` GitHub Actions environment and expects an environment secret named `SITE_PASSWORD`.
+
+1. Go to **Settings → Environments → production** and add the secret `SITE_PASSWORD`.
+2. In that same environment, set protection rules:
+   - restrict deployments to branch `main`
+   - require reviewers before workflows can access environment secrets
+3. Rotate `SITE_PASSWORD` regularly and immediately after any suspected exposure.
+
+> GitHub Pages serves static files only. Do not place passwords in client-side code (`HTML`, `JS`, `CSS`) because they are publicly visible to visitors.
