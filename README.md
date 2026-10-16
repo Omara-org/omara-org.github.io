@@ -16,4 +16,4 @@ docker run --rm -it -p 4000:4000 -u "$(id -u):$(id -g)" -e HOME=/tmp \
   sh -c "bundle install && bundle exec jekyll serve --host 0.0.0.0"
 ```
 
-Login gate password is configured in `/home/runner/work/omara-org.github.io/omara-org.github.io/_includes/head/custom.html` (`sitePassword`).
+Login gate password is configured in `_includes/head/custom.html` (`sitePassword`).
