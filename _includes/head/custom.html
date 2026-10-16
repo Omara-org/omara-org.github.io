@@ -1,2 +1,103 @@
 <!-- site-specific additions to <head> -->
 <link rel="icon" href="{{ '/assets/images/logo.svg' | relative_url }}" type="image/svg+xml">
+<style>
+  html.site-locked body > *:not(#site-login-gate) {
+    display: none !important;
+  }
+
+  #site-login-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: #101015;
+  }
+
+  #site-login-gate .gate-card {
+    width: min(28rem, 100%);
+    padding: 1.5rem;
+    border: 1px solid #3f5c6b;
+    border-radius: 0.5rem;
+    background: #1d2830;
+    color: #fff;
+  }
+
+  #site-login-gate h2 {
+    margin: 0 0 0.75rem;
+  }
+
+  #site-login-gate p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  #site-login-gate input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.75rem;
+  }
+
+  #site-login-gate .error {
+    margin: 0;
+    color: #ffb4b4;
+    min-height: 1.25rem;
+  }
+</style>
+<script>
+  (function () {
+    var storageKey = "omara-site-unlocked";
+    var sitePassword = "omara";
+    var unlocked = false;
+
+    try {
+      unlocked = window.localStorage.getItem(storageKey) === "true";
+    } catch (e) {
+      unlocked = false;
+    }
+
+    if (unlocked) return;
+
+    document.documentElement.classList.add("site-locked");
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var gate = document.createElement("div");
+      gate.id = "site-login-gate";
+      gate.innerHTML =
+        '<div class="gate-card">' +
+        "<h2>Restricted access</h2>" +
+        "<p>Enter the password to view this site.</p>" +
+        '<form id="site-login-form">' +
+        '<input id="site-password" type="password" placeholder="Password" autocomplete="current-password" required />' +
+        '<button type="submit" class="btn btn--primary">Log in</button>' +
+        '<p class="error" id="site-login-error" aria-live="polite"></p>' +
+        "</form>" +
+        "</div>";
+
+      document.body.appendChild(gate);
+
+      var form = document.getElementById("site-login-form");
+      var passwordInput = document.getElementById("site-password");
+      var error = document.getElementById("site-login-error");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (passwordInput.value === sitePassword) {
+          try {
+            window.localStorage.setItem(storageKey, "true");
+          } catch (e) {}
+          document.documentElement.classList.remove("site-locked");
+          gate.remove();
+        } else {
+          error.textContent = "Wrong password. Try again.";
+          passwordInput.value = "";
+          passwordInput.focus();
+        }
+      });
+
+      passwordInput.focus();
+    });
+  })();
+</script>
