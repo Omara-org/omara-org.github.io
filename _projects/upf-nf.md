@@ -14,4 +14,4 @@ The UPF-NF is written totally in C++ std=20, using rigid good coding practice po
 
 In this way, we focus a lot of time writing an independent C++ DPDK wrappers, focus all the implementation on the DPDK, and, in a second moment, we used the easy interfaces of DPDKPP for building the UPF. The results is a complete decorrelation of the two level of complexity preventing as much as possible bugs due to tangled implementation of dpdk with upf business logic.
 
-![upf-nf — one assembly, constructor-injected](../assets/images/upf-nf-assembly.svg)
+![upf-nf — one assembly, constructor-injected](../../assets/images/upf-nf-assembly.svg)
