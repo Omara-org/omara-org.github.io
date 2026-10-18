@@ -9,7 +9,7 @@ title_separator          : "-"
 subtitle                 : # tagline shown below the title
 name                     : "Omara"
 description              : "Open infrastructure for mobile core networks, built as composition: an engine, protocol libraries and thin network functions."
-url                      : "https://omara-org.github.io"
+url                      : "https://omara-org.github.io" # TODO: change to your OVH domain, e.g. "https://example.com"
 baseurl                  : ""
 repository               : "Omara-org/omara-org.github.io"
 search                   : true
@@ -47,6 +47,7 @@ collections:
 
 include:
   - _pages
+  - .htaccess
 exclude:
   - Gemfile
   - Gemfile.lock

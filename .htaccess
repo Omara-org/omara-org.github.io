@@ -1,0 +1,22 @@
+# Apache settings for OVH web hosting.
+
+# Serve the theme's 404 page for missing URLs.
+ErrorDocument 404 /404.html
+
+# Once the Let's Encrypt certificate is active in the OVH panel
+# (Hosting -> Multisite -> your domain -> SSL), uncomment these three lines
+# to redirect every plain-HTTP request to HTTPS.
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Let the browser cache static assets for a week.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 7 days"
+  ExpiresByType image/png "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 7 days"
+  ExpiresByType font/woff2 "access plus 30 days"
+</IfModule>

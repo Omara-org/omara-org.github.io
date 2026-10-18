@@ -1,0 +1,54 @@
+# Build the Jekyll site and upload the generated _site/ folder to OVH web
+# hosting over FTPS.  OVH shared hosting has no Ruby, so the build happens here.
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   OVH_FTP_HOST      e.g. ftp.cluster0XX.hosting.ovh.net  (OVH panel: Hosting -> "FTP - SSH")
+#   OVH_FTP_USER      the FTP login shown in the same panel
+#   OVH_FTP_PASSWORD  the password you set for that login
+#
+# The upload is incremental: the action keeps a small state file on the server
+# and only transfers files that changed since the last run.
+
+name: Deploy to OVH
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+concurrency:
+  group: "ovh-deploy"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload to OVH
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_FTP_HOST }}
+          username: ${{ secrets.OVH_FTP_USER }}
+          password: ${{ secrets.OVH_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./_site/
+          # The folder your domain is attached to in OVH "Multisite"; "www" is the default.
+          server-dir: ./www/
+          exclude: |
+            **/.git*
+            **/.git*/**
