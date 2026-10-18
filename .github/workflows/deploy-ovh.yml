@@ -1,13 +1,13 @@
 # Build the Jekyll site and upload the generated _site/ folder to OVH web
-# hosting over FTPS.  OVH shared hosting has no Ruby, so the build happens here.
+# hosting over SFTP.  OVH shared hosting has no Ruby, so the build happens here.
 #
 # Required repository secrets (Settings -> Secrets and variables -> Actions):
 #   OVH_FTP_HOST      e.g. ftp.cluster0XX.hosting.ovh.net  (OVH panel: Hosting -> "FTP - SSH")
-#   OVH_FTP_USER      the FTP login shown in the same panel
+#   OVH_FTP_USER      the FTP/SFTP login shown in the same panel
 #   OVH_FTP_PASSWORD  the password you set for that login
 #
-# The upload is incremental: the action keeps a small state file on the server
-# and only transfers files that changed since the last run.
+# OVH's FTP server does not accept explicit FTPS ("500 This security scheme is
+# not implemented"), so the upload uses SFTP on port 22 with the same login.
 
 name: Deploy to OVH
 
@@ -38,17 +38,23 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      - name: Upload to OVH
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.OVH_FTP_HOST }}
-          username: ${{ secrets.OVH_FTP_USER }}
-          password: ${{ secrets.OVH_FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          local-dir: ./_site/
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload to OVH over SFTP
+        env:
+          OVH_FTP_HOST: ${{ secrets.OVH_FTP_HOST }}
+          OVH_FTP_USER: ${{ secrets.OVH_FTP_USER }}
+          OVH_FTP_PASSWORD: ${{ secrets.OVH_FTP_PASSWORD }}
           # The folder your domain is attached to in OVH "Multisite"; "www" is the default.
-          server-dir: ./www/
-          exclude: |
-            **/.git*
-            **/.git*/**
+          REMOTE_DIR: www
+        run: |
+          lftp -u "$OVH_FTP_USER","$OVH_FTP_PASSWORD" "sftp://$OVH_FTP_HOST:22" <<LFTP
+            set sftp:auto-confirm yes
+            set net:max-retries 3
+            set net:timeout 30
+            # --delete removes files on the server that no longer exist in _site/,
+            # so the remote folder is an exact copy of the build.
+            mirror --reverse --delete --verbose --parallel=4 _site/ "$REMOTE_DIR"/
+            quit
+          LFTP

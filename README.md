@@ -1,6 +1,6 @@
 # omara-org.github.io
 
-Jekyll site using the [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) theme, deployed to OVH web hosting over FTPS by `.github/workflows/deploy-ovh.yml` on every push to `main`. The workflow needs the `OVH_FTP_HOST`, `OVH_FTP_USER` and `OVH_FTP_PASSWORD` repository secrets.
+Jekyll site using the [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) theme, deployed to OVH web hosting over SFTP by `.github/workflows/deploy-ovh.yml` on every push to `main`. The workflow needs the `OVH_FTP_HOST`, `OVH_FTP_USER` and `OVH_FTP_PASSWORD` repository secrets.
 
 - Projects: `_projects/<name>.md` (one page per project)
 - Practices: `_practices/<name>.md`
