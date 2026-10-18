@@ -63,4 +63,9 @@ jobs:
           SSHPASS="$(printf '%s' "$SSHPASS" | tr -d '\r\n')"; export SSHPASS
           OVH_FTP_USER="$(printf '%s' "$OVH_FTP_USER" | tr -d '[:space:]')"
           OVH_FTP_HOST="$(printf '%s' "$OVH_FTP_HOST" | tr -d '[:space:]')"
-          sshpass -e sftp -P 22 -o StrictHostKeyChecking=no -b sftp.batch "$OVH_FTP_USER@$OVH_FTP_HOST"
+          # Diagnostic: lengths and (non-secret) fingerprints, to compare with
+          # the values that work from a terminal.  Remove once the deploy works.
+          echo "host: length ${#OVH_FTP_HOST}, sha256 $(printf '%s' "$OVH_FTP_HOST" | sha256sum | cut -c1-12)"
+          echo "user: length ${#OVH_FTP_USER}, sha256 $(printf '%s' "$OVH_FTP_USER" | sha256sum | cut -c1-12)"
+          echo "pass: length ${#SSHPASS}"
+          sshpass -v -e sftp -P 22 -o StrictHostKeyChecking=no -b sftp.batch "$OVH_FTP_USER@$OVH_FTP_HOST"
