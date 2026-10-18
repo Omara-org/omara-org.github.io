@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="542" style="background:#ffffff" role="img" viewBox="0 0 1000 542" aria-label="upf-nf as an assembly: six libraries on top; the UpfNf class in the middle holding constructor-injected members (PFCP endpoint, session table, downlink table and buffer, sharded UE pools, usage reporter, quota watcher, TEID counter) plus the HCS reactor, thread pool and timer wheel; below, the datapath seam with exactly one of three datapaths (socket oracle, AF_XDP, DPDK) and, on the side, omadica-ops observability.">
+      <defs>
+        <marker id="arr2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L8,4 L0,8 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <g fill="none" stroke="#1a1a1a" stroke-width="1.2" font-family="IBM Plex Mono, monospace" font-size="12">
+        <text x="500" y="24" text-anchor="middle" fill="#0E7C86" stroke="none" font-family="Chivo, sans-serif" font-weight="700" font-size="14">upf-nf — one assembly, constructor-injected</text>
+
+        <!-- libraries row -->
+        <rect x="40" y="44" width="150" height="46" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="115" y="63" text-anchor="middle" fill="#1a1a1a" stroke="none">HCS · 15.5k</text>
+        <text x="115" y="80" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">reactor · pool · timers</text>
+        <rect x="205" y="44" width="170" height="46" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="290" y="63" text-anchor="middle" fill="#1a1a1a" stroke="none">gtp-lib · 24.9k</text>
+        <text x="290" y="80" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">PFCP · rules · sessions · wire</text>
+        <rect x="390" y="44" width="130" height="46" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="455" y="63" text-anchor="middle" fill="#1a1a1a" stroke="none">nf-lib · 4.5k</text>
+        <text x="455" y="80" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">UE pool · TEIDs</text>
+        <rect x="535" y="44" width="110" height="46" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="590" y="63" text-anchor="middle" fill="#1a1a1a" stroke="none">cdr-lib · 2.6k</text>
+        <text x="590" y="80" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">CDR · spool</text>
+        <rect x="660" y="44" width="140" height="46" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="730" y="63" text-anchor="middle" fill="#1a1a1a" stroke="none">ops · 2.1k</text>
+        <text x="730" y="80" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">exporter · drain</text>
+        <rect x="815" y="44" width="145" height="46" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="887" y="63" text-anchor="middle" fill="#1a1a1a" stroke="none">dpdkpp · 13.4k</text>
+        <text x="887" y="80" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">lcores · rings · sched</text>
+
+        <!-- the assembly -->
+        <rect x="120" y="126" width="620" height="192" rx="8" stroke="#0E7C86" stroke-width="2"/>
+        <text x="430" y="146" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="700">UpfNf&lt;Ingress, N6&gt; — the assembly, upf_nf.h, 2,681 lines: where components meet</text>
+        <rect x="140" y="160" width="190" height="34" rx="6"/>
+        <text x="235" y="174" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">n4_ : pfcp::Endpoint</text>
+        <text x="235" y="188" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">gtp-lib endpoint, wired here</text>
+        <rect x="340" y="160" width="190" height="34" rx="6"/>
+        <text x="435" y="174" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">sessions_ : SessionTable</text>
+        <text x="435" y="188" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">gtp-lib; rules → datapath cells</text>
+        <rect x="540" y="160" width="190" height="34" rx="6"/>
+        <text x="635" y="174" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">downlink_ + buffer_</text>
+        <text x="635" y="188" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">gtp-lib table; End Marker (P16)</text>
+        <rect x="140" y="202" width="190" height="34" rx="6"/>
+        <text x="235" y="216" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">ue_pool_ / ue_pool6_</text>
+        <text x="235" y="230" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">one slice per shard; 441</text>
+        <rect x="340" y="202" width="190" height="34" rx="6"/>
+        <text x="435" y="216" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">reporter_ + watcher_</text>
+        <text x="435" y="230" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">usage, quota, triggers → N4, CDR</text>
+        <rect x="540" y="202" width="190" height="34" rx="6"/>
+        <text x="635" y="216" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">reactor_ + pool_ + timers_</text>
+        <text x="635" y="230" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">HCS; epoll thread, pool, wheel</text>
+        <rect x="140" y="244" width="190" height="34" rx="6"/>
+        <text x="235" y="258" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">end_marker_policy_ (P16)</text>
+        <text x="235" y="272" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">sndem | always | never, count</text>
+        <rect x="340" y="244" width="190" height="34" rx="6"/>
+        <text x="435" y="258" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">delay_critical_qfi_ (P17)</text>
+        <text x="435" y="272" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">QoS class table → URLLC lane</text>
+        <rect x="540" y="244" width="190" height="34" rx="6"/>
+        <text x="635" y="258" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">tm_slices_ + ApplyTm (P18)</text>
+        <text x="635" y="272" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="9">NI → slice; TmCmd ring</text>
+        <text x="430" y="304" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".7" font-size="10">members injected by the constructor; config 310, CDR sink 131, main 1,669; src/ 21,955 lines</text>
+
+        <!-- library -> assembly arrows -->
+        <line x1="115" y1="90" x2="190" y2="126" marker-end="url(#arr2)"/>
+        <line x1="290" y1="90" x2="330" y2="126" marker-end="url(#arr2)"/>
+        <line x1="455" y1="90" x2="440" y2="126" marker-end="url(#arr2)"/>
+        <line x1="590" y1="90" x2="560" y2="126" marker-end="url(#arr2)"/>
+        <line x1="887" y1="90" x2="700" y2="126" marker-end="url(#arr2)"/>
+
+        <!-- ops satellite -->
+        <rect x="770" y="160" width="190" height="76" rx="6" stroke-dasharray="4 3"/>
+        <text x="865" y="179" text-anchor="middle" fill="#1a1a1a" stroke="none" font-size="11">ops: :9100 /metrics</text>
+        <text x="865" y="195" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">/healthz /readyz, admin socket</text>
+        <text x="865" y="211" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">drain · undrain · status</text>
+        <text x="865" y="227" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".65" font-size="10">counters pulled at scrape time</text>
+        <line x1="730" y1="90" x2="840" y2="160" marker-end="url(#arr2)"/>
+        <line x1="740" y1="200" x2="770" y2="200" marker-end="url(#arr2)"/>
+
+        <!-- the seam -->
+        <line x1="120" y1="342" x2="740" y2="342" stroke="#0E7C86" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="430" y="336" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".8" font-size="10">datapath_ : one of three (--datapath); same control plane above, byte-identical G-PDUs below</text>
+        <line x1="430" y1="318" x2="430" y2="342" marker-end="url(#arr2)"/>
+
+        <!-- three datapaths -->
+        <rect x="60" y="364" width="250" height="100" rx="6"/>
+        <text x="185" y="384" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="700">socket oracle</text>
+        <text x="185" y="402" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">kernel UDP sockets, no root</text>
+        <text x="185" y="418" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">the oracle the others are diffed against</text>
+        <text x="185" y="434" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">runs on a laptop, in CI, in every test</text>
+        <text x="185" y="450" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".55" font-size="10">socket_datapath.h: 300 lines</text>
+        <rect x="330" y="364" width="250" height="100" rx="6"/>
+        <text x="455" y="384" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="700">AF_XDP</text>
+        <text x="455" y="402" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">n3_xdp.bpf.o classifies in the driver</text>
+        <text x="455" y="418" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">gate/MBR/quota in kernel maps; XSK up</text>
+        <text x="455" y="434" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">N6 over a TUN; zero-copy if the NIC can</text>
+        <text x="455" y="450" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".55" font-size="10">812 lines + HCS io::Xdp*, n3_xdp.bpf</text>
+        <rect x="600" y="364" width="340" height="100" rx="6" stroke="#0E7C86" stroke-width="2"/>
+        <text x="770" y="384" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="700">DPDK (the one the rig measured)</text>
+        <text x="770" y="402" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">owner lcores + scheduler lcore (rte_sched)</text>
+        <text x="770" y="418" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">TEID-sharded owners; URLLC lane, own TX queue</text>
+        <text x="770" y="434" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".75" font-size="10">placement ladder; GFBR pipes, slices, pacer</text>
+        <text x="770" y="450" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".55" font-size="10">11.5k lines; 39.4 Gb/s; DC p99.99 50–90 µs</text>
+
+        <!-- bottom note -->
+        <rect x="60" y="482" width="880" height="44" rx="6" stroke-dasharray="2 2" opacity=".6"/>
+        <text x="500" y="500" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".7" font-size="10">Nothing above the seam knows which datapath is below: establish/modify/release, reports, buffering, DDN are written once.</text>
+        <text x="500" y="516" text-anchor="middle" fill="#1a1a1a" stroke="none" opacity=".7" font-size="10">A datapath implements the Ingress concept (addPdr, installUrr, installQer, bindUe, latchQuota, armStart, flows, QoS class, tap) — nothing else.</text>
+      </g>
+    </svg>
