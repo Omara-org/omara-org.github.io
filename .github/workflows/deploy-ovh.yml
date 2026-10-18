@@ -54,6 +54,8 @@ jobs:
           # second put covers .htaccess, which the * glob does not match.
           cat > sftp.batch <<EOF
           cd $REMOTE_DIR
+          -rm index.html
+          -rm .htaccess
           lcd _site
           put -r *
           put .htaccess
