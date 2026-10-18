@@ -59,4 +59,8 @@ jobs:
           put .htaccess
           bye
           EOF
+          # Secrets pasted into GitHub sometimes carry a trailing line break; strip it.
+          SSHPASS="$(printf '%s' "$SSHPASS" | tr -d '\r\n')"; export SSHPASS
+          OVH_FTP_USER="$(printf '%s' "$OVH_FTP_USER" | tr -d '[:space:]')"
+          OVH_FTP_HOST="$(printf '%s' "$OVH_FTP_HOST" | tr -d '[:space:]')"
           sshpass -e sftp -P 22 -o StrictHostKeyChecking=no -b sftp.batch "$OVH_FTP_USER@$OVH_FTP_HOST"
