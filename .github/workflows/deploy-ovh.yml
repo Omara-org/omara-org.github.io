@@ -38,24 +38,25 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      - name: Install lftp
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Install sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
 
       - name: Upload to OVH over SFTP
         env:
           OVH_FTP_HOST: ${{ secrets.OVH_FTP_HOST }}
           OVH_FTP_USER: ${{ secrets.OVH_FTP_USER }}
-          LFTP_PASSWORD: ${{ secrets.OVH_FTP_PASSWORD }}
+          SSHPASS: ${{ secrets.OVH_FTP_PASSWORD }}
           # The folder your domain is attached to in OVH "Multisite"; "www" is the default.
           REMOTE_DIR: www
         run: |
-          lftp --env-password -u "$OVH_FTP_USER" "sftp://$OVH_FTP_HOST:22" <<LFTP
-            set sftp:auto-confirm yes
-            set net:max-retries 3
-            set net:timeout 30
-            debug 3
-            # --delete removes files on the server that no longer exist in _site/,
-            # so the remote folder is an exact copy of the build.
-            mirror --reverse --delete --verbose --parallel=4 _site/ "$REMOTE_DIR"/
-            quit
-          LFTP
+          # Batch for the stock OpenSSH sftp client: enter the site folder on the
+          # server, enter the build folder locally, upload everything.  The
+          # second put covers .htaccess, which the * glob does not match.
+          cat > sftp.batch <<EOF
+          cd $REMOTE_DIR
+          lcd _site
+          put -r *
+          put .htaccess
+          bye
+          EOF
+          sshpass -e sftp -P 22 -o StrictHostKeyChecking=no -b sftp.batch "$OVH_FTP_USER@$OVH_FTP_HOST"
