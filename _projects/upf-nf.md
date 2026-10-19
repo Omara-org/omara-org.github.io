@@ -28,7 +28,7 @@ The components are:
      3. The rules layer is the compact model a datapath can execute: PDR, FAR, QER and URR with their limits, the QoS class, SDF filters and the session's Network Instance. 
      4. The adapt layer maps PFCP messages onto that model. 
      5. The session layer keeps the session table, downlink bindings, buffering state and the per-flow sets.
-- nf-lib: It is a container of other protocols that, somehow are common to each NF, but cannot be classified of deserved a separate library e.g. Subscriber and sessions identity, forwording primitives, account and policies
+- nf-lib: it is a container of building blocks that are common to every NF but too small to deserve a library of their own: subscriber and session identity (IDs, keys, subscriber map, UE IP pool), forwarding primitives (GTP-U FIB, relay, tunnel bridge, paired datapath, XDP forwarder) and accounting and policing (token bucket, PGW-CDR sink)
 - cdr-lib: the standard to generate CDRs. The logic is taken by gtp-lib  
-- ops: 
+- ops: It provides a metrics registry, Prometheus text exporter, bounded HTTP/1.0 server, health endpoint, admin/drain socket, and an assembled OpsService that exposes readiness, metrics, and graceful shutdown.
 - dpdkpp: the DPDK wrappers. It expose few interfaces to dpdk features wrapped into RAII objects.

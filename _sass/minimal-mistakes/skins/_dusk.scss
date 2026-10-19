@@ -3,6 +3,20 @@
    meant to be comfortable at any hour.
    ========================================================================== */
 
+/* Layout: a wider page with narrower sidebars, so the main column gets
+   more room, and a smaller base font.  The theme defaults are 1280px max
+   width, 200/300/400px sidebars, and a root font size that climbs from
+   16px to 22px on wide screens. */
+$max-width: 1600px !default;
+$right-sidebar-width-narrow: 180px !default;
+$right-sidebar-width: 220px !default;
+$right-sidebar-width-wide: 260px !default;
+
+$doc-font-size: 16px !default;
+$doc-font-size-medium: 16px !default;
+$doc-font-size-large: 17px !default;
+$doc-font-size-x-large: 18px !default;
+
 /* Colors */
 $background-color: #cfc9bf !default;          // warm stone
 $text-color: #2b2926 !default;
