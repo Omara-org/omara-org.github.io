@@ -48,3 +48,12 @@ For testing the correctness and performance of the UPF we need to use a laborato
      - Network Card: 40Gbps ConnectX-3 Pro dual port
 
 ![labo — assembly](../../assets/images/labo.png)
+
+The set-up is cheap but good for a POC. I focused the test campaign on the ability of the UPF to saturate the hardware capabilities, measuring the latency and the number of Milions Packet per Second (Mpps) taken in charge by the UPF. I also explored some edge scenarios like quota check, traffic control and management with assigned GBR.
+
+I also explored the connection with the control-plane (the SMF mocked using a python script) via 1Gbps interface.
+
+## Laboratory set-up
+
+The DUT need a custom set-up optimization for work as best as he can, he have to set-up the hugepages, pinned the CPU for upf specific use, selecting them by their NUMA and Socket affinity. 
+
