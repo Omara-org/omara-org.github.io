@@ -5,7 +5,7 @@ excerpt: "In-house user plane function for 5g-sa B2B use cases"
 
 This page presents the UPF-NF project. It is a feasability study to make an in-house UPF using DPDK for figuring out the problem of the CPU bottleneck for ultra wide bandwitdh backbone. Recently, the case of 800Gbps has been studied by Alexandre Cassen using gtp-guard. He proved that kernel XDP with eBPF programs can ensure the full 800Gbps backbone capacity. Even if the compelling results obtained with gtp-guard, this study based on DPDK is needed to be ready for future network hardware improvements where the CPU bottleneck can represent a limitation and a kernel by-pass will represent the only solution for this limitation.
 
-# Brief overview on the architecture and technology used
+# Brief overview on the architecture and technology
 
 The UPF-NF is written totally in C++ std=20, using rigid good coding practice policies. All the implementation are RAII to prevent as much as possible the memory leaks, and the DPDK parts needed for this project (a famous library written in C) have been wrapped into C++ RAII objects. In this way, we can use the DPDK C++ wrappers library (that we called DPDKPP) for easily managing the non trivial features of DPDK, and split the complexity of the problem out in two:
 
@@ -32,3 +32,19 @@ The components are:
 - cdr-lib: the standard to generate CDRs. The logic is taken by gtp-lib  
 - ops: It provides a metrics registry, Prometheus text exporter, bounded HTTP/1.0 server, health endpoint, admin/drain socket, and an assembled OpsService that exposes readiness, metrics, and graceful shutdown.
 - dpdkpp: the DPDK wrappers. It expose few interfaces to dpdk features wrapped into RAII objects.
+
+# Testbed and laboratory qualification
+
+For testing the correctness and performance of the UPF we need to use a laboratory with a dedicated hardware. Since the UPF is based on DPDK, also the smoking tests have to be done with adequate hardware. We set-up a very simple laboratory based on two machines, that we called DUT [Device Under Test] and TRex [TRex is the cisco traffic generator, used for testing the UPF].
+
+- DUT specs
+     - Motherboard: GIGABYTE A520M S2H Motherboard AM4 socket
+     - CPU: 4.0 GHz AMD Ryzen3-4100
+     - Network Card: 40Gbps ConnectX-3 Pro dual port
+
+- TRex specs
+     - Motherboard: Z790 Aorus Elite AX
+     - CPU: 5.4 GHz Core i7-13700K
+     - Network Card: 40Gbps ConnectX-3 Pro dual port
+
+![labo — assembly](../../assets/images/labo.png)
