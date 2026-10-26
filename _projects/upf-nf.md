@@ -52,8 +52,17 @@ For testing the correctness and performance of the UPF we need to use a laborato
 The set-up is cheap but good for a POC. I focused the test campaign on the ability of the UPF to saturate the hardware capabilities, measuring the latency and the number of Milions Packet per Second (Mpps) taken in charge by the UPF. I also explored some edge scenarios like quota check, traffic control and management with assigned GBR.
 
 I also explored the connection with the control-plane (the SMF mocked using a python script) via 1Gbps interface.
+The DUT need a custom set-up optimization for work as best as he can, he have to set-up the hugepages, pinned the CPU for upf specific use, selecting them by their NUMA and Socket affinity.
 
-## Laboratory set-up
 
-The DUT need a custom set-up optimization for work as best as he can, he have to set-up the hugepages, pinned the CPU for upf specific use, selecting them by their NUMA and Socket affinity. 
+## Test campaign - main goals
+
+--- correctness
+Speed limits set for a user or for a single app were respected exactly. When a user ran out of data allowance, traffic stopped and a report was sent. Sleeping phones had their data held and were woken up. Billing records were produced with the right reasons. Copies of traffic for monitoring were exact. IPv6 worked. Handovers between antennas signalled correctly. Network slices stayed isolated. Only one point is open: how a "total" data allowance should be counted, which is a design choice, not a fault.
+
+--- performance
+We measured how much traffic the UPF can move on a small 4-core desktop with a 40 gigabit network card. It filled the whole link in both directions without losing a single packet, and kept doing so with 256 users and all speed limits and data allowances switched on. Delay stayed in the tens of microseconds. Time-critical traffic, such as factory robots, kept its very low delay even while ordinary traffic flooded the link. Guaranteed-bandwidth users received exactly what they were promised, and the link could be throttled to a slower backhaul. A 24-hour endurance run is in progress, with the result due today.
+
+--- control plane
+We checked how the UPF talks to its controller, the SMF, which tells it which users exist and what rules apply. Setting up users works at scale: ten thousand users were created without a single refusal. When the controller crashed and restarted, the UPF noticed, cleaned up the old users, and accepted the new ones, with no stale state left behind. An earlier bug, where the UPF answered a restarted controller with old cached replies, is confirmed fixed. IPv6 addresses, per-app rules, handover signals and network-slice names were all accepted correctly. Only one timing measurement, bulk deletion of users, is still to be taken.
 
