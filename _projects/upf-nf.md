@@ -4,9 +4,7 @@ excerpt: "In-house user plane function for 5G-SA B2B use cases"
 ---
 This page presents UPF-NF, an in-house feasibility study of a 5G User Plane Function built on DPDK. The question behind it is whether a userspace, poll-mode datapath is a viable foundation for a very high-throughput user plane, where the CPU, rather than the network card, tends to become the limit. 
 
-The 800 Gb/s case was explored first by Alexandre Cassen with gtp-guard, which showed that an in-kernel XDP/eBPF forwarder can reach that class of throughput. 
-We do not have hardware of that class, so this study makes no direct comparison. UPF-NF takes the complementary route: the same user-plane model,
-but in userspace on a DPDK poll-mode datapath. In these pages we present the DPDK datapath end to end and report its measured behaviour as-is on the lab rig we have (a two-node 40 GbE ConnectX-3 setup driven by TRex).
+The UPF-NF explores a complementary route to kernel sockets: the same user-plane model, but in userspace on a DPDK poll-mode datapath. In these pages we present the DPDK datapath end to end and report its measured behaviour as-is on the lab rig we have (a two-node 40 GbE ConnectX-3 setup driven by TRex).
 
 Our mesurements have focused on:
 
